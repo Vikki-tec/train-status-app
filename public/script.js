@@ -27,10 +27,15 @@ async function getStatus() {
     let stationsHTML = "";
 
     body.stations.slice(0, 5).forEach((s, index) => {
+      const isCurrent = s.stationCode === body.current_station;
+
       stationsHTML += `
         <div class="timeline-item">
-          <div class="dot ${index === 0 ? "active" : ""}"></div>
-          <span>${s.stationName}</span>
+         <div class="dot ${isCurrent ? "active" : ""}"></div>
+         <span>
+           ${s.stationName}
+           ${isCurrent ? '<span class="train">🚆</span>' : ""}
+         </span>
         </div>
         ${index !== 4 ? `<div class="line"></div>` : ""}
       `;

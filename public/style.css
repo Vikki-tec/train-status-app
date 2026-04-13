@@ -112,3 +112,18 @@ li {
   background: #ff4d4d;
   color: white;
 }
+
+.train {
+  font-size: 20px;
+  margin-left: 10px;
+  animation: moveTrain 2s infinite alternate ease-in-out;
+}
+
+@keyframes moveTrain {
+  from {
+    transform: translateX(0px);
+  }
+  to {
+    transform: translateX(10px);
+  }
+}
