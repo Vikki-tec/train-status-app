@@ -26,18 +26,24 @@ async function getStatus() {
     // 📍 Timeline build
     let stationsHTML = "";
 
-    body.stations.slice(0, 5).forEach((s, index) => {
+    const currentIndex = body.stations.findIndex(
+      s => s.stationCode === body.current_station
+    );
+
+    const visibleStations = body.stations.slice(currentIndex, currentIndex + 5);
+
+    visibleStations.forEach((s, index) => {
       const isCurrent = index === 0;
 
       stationsHTML += `
         <div class="timeline-item">
-         <div class="dot ${isCurrent ? "active" : ""}"></div>
-         <span>
-           ${s.stationName}
-           ${isCurrent ? '<span class="train">🚆</span>' : ""}
-         </span>
+          <div class="dot ${isCurrent ? "active" : ""}"></div>
+          <span>
+            ${s.stationName}
+            ${isCurrent ? '<span class="train">🚆</span>' : ""}
+          </span>
         </div>
-        ${index !== 4 ? `<div class="line"></div>` : ""}
+        ${index !== visibleStations.length - 1 ? `<div class="line"></div>` : ""}
       `;
     });
 
