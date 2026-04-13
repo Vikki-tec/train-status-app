@@ -6,11 +6,9 @@ async function getStatus() {
     const data = await res.json();
 
     const body = data.body;
-  
 
-    // 👇 YAHI ADD KARNA HAI
+    // 🔥 Status Badge Logic
     let status = body.train_status_message.toLowerCase();
-
     let badgeClass = "green";
 
     if (status.includes("not started")) {
@@ -19,7 +17,7 @@ async function getStatus() {
       badgeClass = "red";
     }
 
-    // Timeline HTML
+    // 🔥 Timeline HTML
     let stationsHTML = "";
 
     body.stations.slice(0, 5).forEach((s, index) => {
@@ -32,14 +30,16 @@ async function getStatus() {
       `;
     });
 
-    // Final UI render
+    // 🔥 Final UI Render
     document.getElementById("result").innerHTML = `
       <div class="card">
         <h2>🚆 Train Status</h2>
+
         <p><b>Status:</b></p>
-         <div class="badge ${badgeClass}">
-         ${body.train_status_message}
-         </div>
+        <div class="badge ${badgeClass}">
+          ${body.train_status_message}
+        </div>
+
         <p><b>Current Station:</b> ${body.current_station}</p>
         <p><b>Updated:</b> ${body.time_of_availability}</p>
       </div>
