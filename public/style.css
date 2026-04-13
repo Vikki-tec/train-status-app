@@ -127,3 +127,27 @@ li {
     transform: translateX(10px);
   }
 }
+
+.progress-container {
+  width: 80%;
+  height: 6px;
+  background: rgba(255,255,255,0.3);
+  border-radius: 10px;
+  margin: 20px auto;
+  position: relative;
+}
+
+.progress-bar {
+  height: 100%;
+  background: #00ff9d;
+  border-radius: 10px;
+  width: 0%;
+  transition: width 1s ease;
+}
+
+.train-icon {
+  position: absolute;
+  top: -12px;
+  font-size: 22px;
+  transition: left 1s ease;
+}
