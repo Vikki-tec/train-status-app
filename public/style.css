@@ -91,3 +91,24 @@ li {
 .active {
   background: #00ff9d;
 }
+.badge {
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  margin-left: 5px;
+}
+
+.running {
+  background: #00ff9d;
+  color: black;
+}
+
+.not-started {
+  background: #ffcc00;
+  color: black;
+}
+
+.late {
+  background: #ff4d4d;
+  color: white;
+}
