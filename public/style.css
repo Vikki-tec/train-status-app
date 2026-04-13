@@ -1,3 +1,4 @@
+/* 🌈 Background + Base */
 body {
   font-family: 'Poppins', sans-serif;
   background: linear-gradient(135deg, #667eea, #764ba2);
@@ -7,23 +8,28 @@ body {
   color: white;
 }
 
+/* 📦 Container */
 .container {
   margin-top: 60px;
 }
 
+/* 🧾 Heading */
 h1 {
   font-weight: 600;
   margin-bottom: 20px;
 }
 
+/* 🔍 Input */
 input {
   padding: 12px;
-  width: 220px;
+  width: 240px;
   border-radius: 10px;
   border: none;
   outline: none;
+  font-size: 14px;
 }
 
+/* 🔘 Button */
 button {
   padding: 12px 18px;
   margin-left: 10px;
@@ -33,69 +39,31 @@ button {
   color: white;
   cursor: pointer;
   transition: 0.3s;
+  font-weight: 500;
 }
 
 button:hover {
   background: #ff4e00;
 }
 
+/* 🪟 Cards */
 .card {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(12px);
   padding: 20px;
   margin: 25px auto;
   width: 320px;
   border-radius: 15px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-li {
-  padding: 5px 0;
-}
-
-.dark {
-  background: #121212;
-}
-
-.timeline {
-  text-align: left;
-  margin-top: 10px;
-}
-
-.timeline-item {
-  display: flex;
-  align-items: center;
-  margin: 10px 0;
-}
-
-.dot {
-  height: 12px;
-  width: 12px;
-  border-radius: 50%;
-  background: #ff4e00;
-  margin-right: 10px;
-}
-
-.line {
-  width: 2px;
-  height: 20px;
-  background: white;
-  margin-left: 5px;
-}
-
-.active {
-  background: #00ff9d;
-}
+/* 🏷️ Status Badge */
 .badge {
-  padding: 6px 10px;
-  border-radius: 6px;
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 8px;
   font-weight: 600;
-  margin-left: 5px;
+  margin-top: 5px;
 }
 
 .running {
@@ -113,41 +81,85 @@ li {
   color: white;
 }
 
+/* 📍 Timeline */
+.timeline {
+  text-align: left;
+  margin-top: 15px;
+}
+
+/* 🧱 Timeline item */
+.timeline-item {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+/* 🔴 Dot */
+.dot {
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background: #ff4e00;
+  margin-right: 10px;
+}
+
+/* 🟢 Active (current station) */
+.active {
+  background: #00ff9d;
+}
+
+/* 📏 Line */
+.line {
+  width: 2px;
+  height: 20px;
+  background: white;
+  margin-left: 5px;
+}
+
+/* 🚆 Train icon */
 .train {
-  font-size: 20px;
-  margin-left: 10px;
-  animation: moveTrain 2s infinite alternate ease-in-out;
+  margin-left: 8px;
+  font-size: 18px;
 }
 
-@keyframes moveTrain {
-  from {
-    transform: translateX(0px);
-  }
-  to {
-    transform: translateX(10px);
-  }
-}
-
+/* 📊 Progress Bar */
 .progress-container {
   width: 80%;
   height: 6px;
-  background: rgba(255,255,255,0.3);
+  background: rgba(255, 255, 255, 0.3);
   border-radius: 10px;
   margin: 20px auto;
   position: relative;
 }
 
+/* 🟢 Progress fill */
 .progress-bar {
   height: 100%;
   background: #00ff9d;
   border-radius: 10px;
-  width: 0%;
   transition: width 1s ease;
 }
 
+/* 🚆 Moving train */
 .train-icon {
   position: absolute;
   top: -12px;
   font-size: 22px;
-  transition: left 1s ease;
+  transform: translateX(-50%);
+}
+
+/* 🌙 Dark Mode */
+.dark {
+  background: #121212;
+}
+
+/* 📱 Responsive */
+@media (max-width: 400px) {
+  .card {
+    width: 90%;
+  }
+
+  input {
+    width: 70%;
+  }
 }

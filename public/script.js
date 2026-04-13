@@ -12,25 +12,41 @@ async function getStatus() {
     const res = await fetch(`/train/${trainNumber}`);
     const data = await res.json();
 
-    const body = data.body;
+    const body = data.body || {};
 
-    // 🔥 Badge Logic
-    let badgeClass = "running";
+    // 🔥 SAFE stations
+    const stations = body.stations || [];
 
-    if (body.train_status_message.toLowerCase().includes("not started")) {
-      badgeClass = "not-started";
-    } else if (body.train_status_message.toLowerCase().includes("late")) {
-      badgeClass = "late";
-    }
-
-    // 📍 Timeline build
-    let stationsHTML = "";
-
-    const currentIndex = body.stations.findIndex(
+    // 🔥 FIND CURRENT INDEX (SAFE)
+    let currentIndex = stations.findIndex(
       s => s.stationCode === body.current_station
     );
 
-    const visibleStations = body.stations.slice(currentIndex, currentIndex + 5);
+    if (currentIndex === -1) currentIndex = 0;
+
+    const totalStations = stations.length || 1;
+
+    // 🔥 PROGRESS %
+    const progressPercent =
+      totalStations > 1
+        ? (currentIndex / (totalStations - 1)) * 100
+        : 0;
+
+    // 🔥 BADGE LOGIC
+    let badgeClass = "running";
+
+    const statusText = (body.train_status_message || "").toLowerCase();
+
+    if (statusText.includes("not started")) {
+      badgeClass = "not-started";
+    } else if (statusText.includes("late")) {
+      badgeClass = "late";
+    }
+
+    // 🔥 VISIBLE STATIONS (CURRENT + NEXT)
+    const visibleStations = stations.slice(currentIndex, currentIndex + 5);
+
+    let stationsHTML = "";
 
     visibleStations.forEach((s, index) => {
       const isCurrent = index === 0;
@@ -39,11 +55,15 @@ async function getStatus() {
         <div class="timeline-item">
           <div class="dot ${isCurrent ? "active" : ""}"></div>
           <span>
-            ${s.stationName}
+            ${s.stationName || "N/A"}
             ${isCurrent ? '<span class="train">🚆</span>' : ""}
           </span>
         </div>
-        ${index !== visibleStations.length - 1 ? `<div class="line"></div>` : ""}
+        ${
+          index !== visibleStations.length - 1
+            ? `<div class="line"></div>`
+            : ""
+        }
       `;
     });
 
@@ -52,13 +72,27 @@ async function getStatus() {
       <div class="card">
         <h2>🚆 Train Status</h2>
 
-        <p><b>Status:</b></p>
-        <div class="badge ${badgeClass}">
-          ${body.train_status_message}
-        </div>
+        <p><b>Status:</b> 
+          <span class="badge ${badgeClass}">
+            ${body.train_status_message || "No data"}
+          </span>
+        </p>
 
-        <p><b>Current Station:</b> ${body.current_station}</p>
-        <p><b>Updated:</b> ${body.time_of_availability}</p>
+        <p><b>Current Station:</b> ${
+          body.current_station || "N/A"
+        }</p>
+        <p><b>Updated:</b> ${
+          body.time_of_availability || "N/A"
+        }</p>
+      </div>
+
+      <div class="card">
+        <h3>🚆 Live Progress</h3>
+
+        <div class="progress-container">
+          <div class="progress-bar" style="width: ${progressPercent}%"></div>
+          <div class="train-icon" style="left: ${progressPercent}%">🚆</div>
+        </div>
       </div>
 
       <div class="card">
