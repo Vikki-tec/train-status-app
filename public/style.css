@@ -61,3 +61,33 @@ li {
 .dark {
   background: #121212;
 }
+
+.timeline {
+  text-align: left;
+  margin-top: 10px;
+}
+
+.timeline-item {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.dot {
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background: #ff4e00;
+  margin-right: 10px;
+}
+
+.line {
+  width: 2px;
+  height: 20px;
+  background: white;
+  margin-left: 5px;
+}
+
+.active {
+  background: #00ff9d;
+}

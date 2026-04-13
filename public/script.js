@@ -7,11 +7,20 @@ async function getStatus() {
 
     const body = data.body;
 
+    // Timeline HTML
     let stationsHTML = "";
-    body.stations.slice(0, 5).forEach((s) => {
-      stationsHTML += `<li>📍 ${s.stationName}</li>`;
+
+    body.stations.slice(0, 5).forEach((s, index) => {
+      stationsHTML += `
+        <div class="timeline-item">
+          <div class="dot ${index === 0 ? "active" : ""}"></div>
+          <span>${s.stationName}</span>
+        </div>
+        ${index !== 4 ? '<div class="line"></div>' : ''}
+      `;
     });
 
+    // Final UI render
     document.getElementById("result").innerHTML = `
       <div class="card">
         <h2>🚆 Train Status</h2>
@@ -21,10 +30,13 @@ async function getStatus() {
       </div>
 
       <div class="card">
-        <h3>📍 Next Stations</h3>
-        <ul>${stationsHTML}</ul>
+        <h3>📍 Route Timeline</h3>
+        <div class="timeline">
+          ${stationsHTML}
+        </div>
       </div>
     `;
+
   } catch (err) {
     document.getElementById("result").innerHTML = "Error ❌";
   }
