@@ -27,7 +27,7 @@ async function getStatus() {
     let stationsHTML = "";
 
     body.stations.slice(0, 5).forEach((s, index) => {
-      const isCurrent = s.stationCode === body.current_station;
+      const isCurrent = index === 0;
 
       stationsHTML += `
         <div class="timeline-item">
