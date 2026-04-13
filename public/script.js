@@ -1,23 +1,29 @@
 async function getStatus() {
   const trainNumber = document.getElementById("trainNumber").value;
 
+  if (!trainNumber) {
+    alert("Enter train number");
+    return;
+  }
+
+  document.getElementById("result").innerHTML = "Loading... ⏳";
+
   try {
     const res = await fetch(`/train/${trainNumber}`);
     const data = await res.json();
 
     const body = data.body;
 
-    // 🔥 Status Badge Logic
-    let status = body.train_status_message.toLowerCase();
-    let badgeClass = "green";
+    // 🔥 Badge Logic
+    let badgeClass = "running";
 
-    if (status.includes("not started")) {
-      badgeClass = "yellow";
-    } else if (status.includes("late") || status.includes("delayed")) {
-      badgeClass = "red";
+    if (body.train_status_message.toLowerCase().includes("not started")) {
+      badgeClass = "not-started";
+    } else if (body.train_status_message.toLowerCase().includes("late")) {
+      badgeClass = "late";
     }
 
-    // 🔥 Timeline HTML
+    // 📍 Timeline build
     let stationsHTML = "";
 
     body.stations.slice(0, 5).forEach((s, index) => {
@@ -26,11 +32,11 @@ async function getStatus() {
           <div class="dot ${index === 0 ? "active" : ""}"></div>
           <span>${s.stationName}</span>
         </div>
-        ${index !== 4 ? '<div class="line"></div>' : ''}
+        ${index !== 4 ? `<div class="line"></div>` : ""}
       `;
     });
 
-    // 🔥 Final UI Render
+    // 🔥 FINAL UI
     document.getElementById("result").innerHTML = `
       <div class="card">
         <h2>🚆 Train Status</h2>
@@ -51,8 +57,8 @@ async function getStatus() {
         </div>
       </div>
     `;
-
   } catch (err) {
+    console.error(err);
     document.getElementById("result").innerHTML = "Error ❌";
   }
 }
